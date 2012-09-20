@@ -1,0 +1,1 @@
+Send {ctrl down}a{ctrl up}
