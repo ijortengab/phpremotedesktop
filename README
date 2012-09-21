@@ -1,2 +1,42 @@
-Use Case:
-  You can remote control your target computer in the world use internet
+version 0.1 
+
+Description:
+- remote control your computer around the world use internet 
+- use assasin trojan methode but without need IP Public
+
+Requirement for Server (your target computer)
+- currently support for windows
+- autohotkey.com
+- php with curl library
+- web server, apache recomended
+- cron
+
+Requirement for Client (your control panel)
+- webhosting support php
+
+Installation
+- in Client
+  - put all content in client folder to webhosting, and get the url of command.php
+	  example: http://example.com/client/command.php
+- in Server
+	- put all content in server folder to localhost, and get the url of server.php
+	  example: http://localhost/server/server.php
+	  and get absolute location of download.ahk
+	  example: D:\xampp\htdocs\project\remote_desktop\lib\ahk\download.ahk
+	- open file server.php use your text editor, and edit the variable
+		- $config['command']['url'] => url to command.php in webhosting, example:
+		  $config['command']['url'] = "http://example.com/client/command.php"; 
+		- $config['server']['proxy'] => if server need proxy to access internet
+		- $config['server']['password'] => set your password in md5.
+		- $config['server']['sleep_if_idle_in'] => server will connect client every second. if server sleep, only connect client every minute
+	- open file download.ahk, and edit the variable
+		- flocation := "url localhost of server.php" example:
+		  flocation := "http://localhost/project/phpremotedesktop/server/server.php"
+	- open the crontab of cron, and set line to execute download.ahk every minute, like this:
+		* * * * * D:\xampp\htdocs\project\phpremotedesktop\server\ahk\download.ahk
+
+Usage
+- make sure http://localhost accessible and authotkey installed
+- run cron
+- now you can control your server by accesible index.php in webhosting, example
+  example: http://example.com/client/index.php
